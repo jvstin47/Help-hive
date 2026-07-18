@@ -46,7 +46,7 @@ export const RequesterDashboard = () => {
             <span className="text-lg font-black text-primary tracking-tight">Help Hive</span>
           </div>
           {completedCount > 0 && (
-            <span className="text-xs font-bold bg-secondary/10 text-secondary px-3 py-1.5 rounded-full flex items-center gap-1.5">
+            <span className="text-base font-bold bg-secondary/10 text-secondary px-3 py-1.5 rounded-full flex items-center gap-1.5">
               <Heart className="w-3.5 h-3.5 fill-secondary" />
               {completedCount} helped
             </span>
@@ -116,7 +116,7 @@ export const RequesterDashboard = () => {
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${action.color}`}>
                   <action.icon className="w-6 h-6" />
                 </div>
-                <span className="text-xs font-black text-stone-700 whitespace-nowrap">{action.label}</span>
+                <span className="text-base font-black text-stone-700 whitespace-nowrap">{action.label}</span>
               </button>
             ))}
           </div>

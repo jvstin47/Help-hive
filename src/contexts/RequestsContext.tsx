@@ -54,9 +54,25 @@ export const RequestsProvider = ({ children }: { children: ReactNode }) => {
 
     fetchRequests();
 
+    const isVolunteer = user.user_metadata?.role === 'volunteer';
+    const filter = isVolunteer ? `volunteer_id=eq.${user.id}` : `requester_id=eq.${user.id}`;
+
     const channel = supabase.channel('requests-changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'requests' }, () => {
-        fetchRequests(); // Reload requests on any change
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'requests', filter }, (payload) => {
+        setRequests((prev) => {
+          if (payload.eventType === 'INSERT') {
+            const newReq = payload.new as Request;
+            if (prev.find(r => r.id === newReq.id)) return prev;
+            return [newReq, ...prev];
+          }
+          if (payload.eventType === 'UPDATE') {
+            return prev.map(req => req.id === payload.new.id ? { ...req, ...payload.new } as Request : req);
+          }
+          if (payload.eventType === 'DELETE') {
+            return prev.filter(req => req.id !== payload.old.id);
+          }
+          return prev;
+        });
       })
       .subscribe();
 

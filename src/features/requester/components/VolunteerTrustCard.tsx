@@ -1,6 +1,7 @@
 import type { Profile } from '@/types/database.types';
 import { Card, CardContent } from '@/components/ui/card';
 import { ShieldCheck,Quote } from 'lucide-react';
+import { generateAvatarFallback } from '@/utils/avatar';
 
 export const VolunteerTrustCard = ({ volunteer }: { volunteer: Profile }) => {
   return (
@@ -9,7 +10,7 @@ export const VolunteerTrustCard = ({ volunteer }: { volunteer: Profile }) => {
         <div className="flex items-start gap-6">
           <div className="relative">
             <img 
-              src={volunteer.avatar_url || 'https://via.placeholder.com/150'} 
+              src={volunteer.avatar_url || generateAvatarFallback(volunteer.full_name)} 
               alt={volunteer.full_name} 
               className="w-[88px] h-[88px] rounded-full object-cover border-4 border-white shadow-sm"
             />

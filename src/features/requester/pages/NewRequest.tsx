@@ -30,7 +30,7 @@ export const NewRequest = () => {
   const [formData, setFormData] = useState({
     category: initialCategory,
     description: '',
-    address: 'Petta Junction, Kanjirappally', // Auto-filled for prototype
+    address: import.meta.env.DEV ? 'Petta Junction, Kanjirappally' : '', // Auto-filled for prototype
     urgency: 'today' as 'now' | 'today' | 'week',
   });
 

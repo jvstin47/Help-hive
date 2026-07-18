@@ -34,10 +34,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
    * 4. Supabase profiles schema / database: Support dual status flag or multi-role arrays.
    */
   const mockLogin = (role: string) => {
-    localStorage.setItem('mock_role', role);
-    const mockUser = { id: 'mock', email: 'mock@mock.com', user_metadata: { role } } as any;
-    setUser(mockUser);
-    setSession({ user: mockUser } as any);
+    if (import.meta.env.DEV) {
+      localStorage.setItem('mock_role', role);
+      const mockUser = { id: 'mock', email: 'mock@mock.com', user_metadata: { role } } as any;
+      setUser(mockUser);
+      setSession({ user: mockUser } as any);
+    }
   };
 
   useEffect(() => {
@@ -45,9 +47,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const initializeAuth = async () => {
       if (!import.meta.env.VITE_SUPABASE_URL) {
-        const mockRole = localStorage.getItem('mock_role');
-        if (mockRole && mounted) {
-          mockLogin(mockRole);
+        if (import.meta.env.DEV) {
+          const mockRole = localStorage.getItem('mock_role');
+          if (mockRole && mounted) {
+            mockLogin(mockRole);
+          }
         }
         if (mounted) setLoading(false);
         return;
@@ -87,7 +91,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signOut = async () => {
     if (!import.meta.env.VITE_SUPABASE_URL) {
-      localStorage.removeItem('mock_role');
+      if (import.meta.env.DEV) {
+        localStorage.removeItem('mock_role');
+      }
       setSession(null);
       setUser(null);
       return;

@@ -16,7 +16,6 @@ export const EmergencyFAB = () => {
 
   const handleEmergency = () => {
     // In future, this hits a backend broadcast or calls emergency services
-    console.log("Emergency Triggered!");
     setOpen(false);
   };
 

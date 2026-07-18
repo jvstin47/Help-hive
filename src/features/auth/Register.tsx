@@ -110,7 +110,7 @@ export const Register = () => {
                 placeholder="Jane Doe"
                 {...register('fullName')} 
               />
-              {errors.fullName && <p className="text-destructive text-sm font-semibold ml-1">{errors.fullName.message}</p>}
+              {errors.fullName && <p className="text-destructive text-base font-semibold ml-1">{errors.fullName.message}</p>}
             </div>
 
             <div className="space-y-2">
@@ -122,7 +122,7 @@ export const Register = () => {
                 placeholder="you@example.com"
                 {...register('email')} 
               />
-              {errors.email && <p className="text-destructive text-sm font-semibold ml-1">{errors.email.message}</p>}
+              {errors.email && <p className="text-destructive text-base font-semibold ml-1">{errors.email.message}</p>}
             </div>
 
             <div className="space-y-2">
@@ -143,7 +143,7 @@ export const Register = () => {
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
-              {errors.password && <p className="text-destructive text-sm font-semibold ml-1">{errors.password.message}</p>}
+              {errors.password && <p className="text-destructive text-base font-semibold ml-1">{errors.password.message}</p>}
             </div>
 
             <button 

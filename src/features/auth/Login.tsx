@@ -30,7 +30,9 @@ export const Login = () => {
     setError(null);
     try {
       if (!import.meta.env.VITE_SUPABASE_URL) {
-        mockLogin('requester');
+        if (import.meta.env.DEV) {
+          mockLogin('requester');
+        }
         navigate('/requester/dashboard');
         return;
       }
@@ -105,7 +107,7 @@ export const Login = () => {
               placeholder="you@example.com"
               {...register('email')}
             />
-            {errors.email && <p className="text-destructive text-sm font-semibold">{errors.email.message}</p>}
+            {errors.email && <p className="text-destructive text-base font-semibold">{errors.email.message}</p>}
           </div>
 
           <div className="space-y-2">
@@ -126,12 +128,12 @@ export const Login = () => {
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
             </div>
-            {errors.password && <p className="text-destructive text-sm font-semibold">{errors.password.message}</p>}
+            {errors.password && <p className="text-destructive text-base font-semibold">{errors.password.message}</p>}
           </div>
 
           <div className="flex items-center gap-2 mb-2">
             <input type="checkbox" id="remember" className="w-5 h-5 rounded-md border-stone-300 text-primary focus:ring-primary" defaultChecked />
-            <label htmlFor="remember" className="text-sm font-semibold text-stone-600">Remember me next time</label>
+            <label htmlFor="remember" className="text-base font-semibold text-stone-600">Remember me next time</label>
           </div>
 
           <Button
@@ -156,14 +158,16 @@ export const Login = () => {
           </div>
 
           {/* Demo credentials hint */}
-          <div className="mt-4 p-4 bg-accent/10 rounded-2xl border border-accent/20">
-            <p className="text-sm font-bold text-accent-foreground/80 text-stone-700 mb-2">Demo accounts:</p>
-            <div className="space-y-1 text-sm font-semibold text-stone-600">
-              <p>🙋 Requester: <span className="text-primary font-black">ammachi@helphive.com</span></p>
-              <p>🤝 Volunteer: <span className="text-secondary font-black">george@helphive.com</span></p>
-              <p className="text-stone-400">Password: Password123!</p>
+          {import.meta.env.DEV && (
+            <div className="mt-4 p-4 bg-accent/10 rounded-2xl border border-accent/20">
+              <p className="text-base font-bold text-accent-foreground/80 text-stone-700 mb-2">Demo accounts:</p>
+              <div className="space-y-1 text-base font-semibold text-stone-600">
+                <p>🙋 Requester: <span className="text-primary font-black">ammachi@helphive.com</span></p>
+                <p>🤝 Volunteer: <span className="text-secondary font-black">george@helphive.com</span></p>
+                <p className="text-stone-400">Password: Password123!</p>
+              </div>
             </div>
-          </div>
+          )}
         </form>
       </motion.div>
     </div>

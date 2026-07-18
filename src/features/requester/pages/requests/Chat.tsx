@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Send } from 'lucide-react';
+import { generateAvatarFallback } from '@/utils/avatar';
 
 export const Chat = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export const Chat = () => {
         </button>
         <div className="flex items-center gap-3">
           <img 
-            src={`https://api.dicebear.com/7.x/initials/svg?seed=${isVolunteer ? 'Community Member' : 'Volunteer'}`} 
+            src={generateAvatarFallback(isVolunteer ? 'Community Member' : 'Volunteer')} 
             alt="Chat Partner" 
             className="w-12 h-12 rounded-full border-2 border-white object-cover shadow-sm" 
           />

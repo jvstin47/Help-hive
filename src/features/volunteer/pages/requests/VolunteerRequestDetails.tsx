@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { SafetyBanner } from '../../components/SafetyBanner';
 import { useRequests } from '@/contexts/RequestsContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { generateAvatarFallback } from '@/utils/avatar';
 
 export const VolunteerRequestDetails = () => {
   const { id } = useParams();
@@ -68,7 +69,7 @@ export const VolunteerRequestDetails = () => {
         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="bg-white p-6 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-stone-100">
           <div className="flex items-center gap-5 mb-6 pb-6 border-b border-stone-100">
             <img 
-              src={`https://api.dicebear.com/7.x/initials/svg?seed=${request.title}`} 
+              src={generateAvatarFallback('Community Member')} 
               alt="Requester" 
               className="w-[72px] h-[72px] rounded-full border-4 border-white shadow-sm bg-stone-50 object-cover"
             />

@@ -37,6 +37,24 @@ CREATE POLICY "Users can update their own profile."
   ON public.profiles FOR UPDATE
   USING (auth.uid() = id);
 
+CREATE OR REPLACE FUNCTION restrict_profile_updates()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.role IS DISTINCT FROM OLD.role OR
+     NEW.verified IS DISTINCT FROM OLD.verified OR
+     NEW.rating IS DISTINCT FROM OLD.rating OR
+     NEW.created_at IS DISTINCT FROM OLD.created_at THEN
+    RAISE EXCEPTION 'Not allowed to update restricted profile columns';
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER enforce_profile_update_cols
+  BEFORE UPDATE ON public.profiles
+  FOR EACH ROW
+  EXECUTE PROCEDURE restrict_profile_updates();
+
 -- Trigger to update 'updated_at' column
 CREATE OR REPLACE FUNCTION update_modified_column()
 RETURNS TRIGGER AS $$

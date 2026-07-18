@@ -37,18 +37,7 @@ export class AuthService {
 
     if (error) throw handleApiError(error);
 
-    if (data?.user) {
-      // Create the profile since there's no auth trigger
-      const { error: profileError } = await supabase.from('profiles').insert({
-        id: data.user.id,
-        full_name: payload.fullName,
-        role: payload.role as any,
-        email: payload.email,
-        phone: payload.phone || null,
-        address: payload.address || null,
-      } as any);
-      if (profileError) console.error('Failed to create profile record:', profileError);
-    }
+    // Profile creation is now handled by Postgres trigger on auth.users insert
 
     return data;
   }
