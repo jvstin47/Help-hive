@@ -12,6 +12,14 @@ It eliminates tech-anxiety for older adults while providing explicit, step-by-st
 
 ---
 
+## 📲 Download & Try It
+
+> **[⬇️ Download HelpHive.apk](./HelpHive.apk)** (4.3 MB — Android 8.0+)
+>
+> Tap the link above to download the APK directly from this repository. On your Android phone, open the file and allow installation from unknown sources when prompted.
+
+---
+
 ## 🌟 Key Features
 
 *   🗣️ **Voice-First Request Wizard**: Includes native Web Speech API dictation, allowing seniors with visual or motor impairments to input requests by speaking.
